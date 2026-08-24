@@ -31,4 +31,8 @@ create policy "admins manage entries" on public.service_entries for all using (p
 create policy "admins manage groups" on public.groups for all using (public.is_admin()) with check (public.is_admin());
 create policy "admins read profiles" on public.profiles for select using (public.is_admin() or id = auth.uid());
 create or replace view public.public_service_totals as select coalesce(sum(hours), 0) as total_hours, count(*) as entry_count from public.service_entries;
-insert into public.groups(name) values ('Individuals'), ('Relief Society'), ('Elders Quorum'), ('Youth'), ('Primary') on conflict do nothing;
+create or replace function public.get_public_service_totals()
+returns json language sql security definer set search_path = public
+as $$ select json_build_object('total_hours', coalesce(sum(hours), 0)) from public.service_entries $$;
+revoke all on function public.get_public_service_totals() from public;
+grant execute on function public.get_public_service_totals() to anon, authenticated;
