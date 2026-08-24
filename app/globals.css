@@ -5,3 +5,4 @@
 .grid-paper{background-image:linear-gradient(rgba(23,35,60,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(23,35,60,.045) 1px,transparent 1px);background-size:28px 28px}
 .eyebrow{font:500 11px 'DM Mono',monospace;letter-spacing:.15em;text-transform:uppercase}
 .card{border:1px solid rgba(23,35,60,.12);background:rgba(255,253,248,.72);box-shadow:0 12px 32px rgba(23,35,60,.06)}
+.card.ink-card{background:var(--ink);color:var(--cream)}
