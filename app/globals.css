@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root{--ink:#17233c;--cream:#f5f0e7;--gold:#e3a33b;--coral:#e76f51;--mist:#e6e1d8}
+*{box-sizing:border-box} body{margin:0;background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif} h1,h2,h3{font-family:Fraunces,serif} button,input,textarea,select{font:inherit}
+.grid-paper{background-image:linear-gradient(rgba(23,35,60,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(23,35,60,.045) 1px,transparent 1px);background-size:28px 28px}
+.eyebrow{font:500 11px 'DM Mono',monospace;letter-spacing:.15em;text-transform:uppercase}
+.card{border:1px solid rgba(23,35,60,.12);background:rgba(255,253,248,.72);box-shadow:0 12px 32px rgba(23,35,60,.06)}
