@@ -7,8 +7,8 @@ export async function POST(request: Request){
   const hours=Number(form.get('hours'));
   const description=String(form.get('description')||'').trim();
   const service_date=String(form.get('service_date')||'');
-  if(!entity_name||!description||!service_date||!Number.isFinite(hours)||hours<=0) return NextResponse.redirect(new URL('/?error=invalid#submit',request.url));
+  if(!entity_name||!description||!service_date||!Number.isFinite(hours)||hours<=0) return NextResponse.json({error:'Invalid entry'},{status:400});
   const {error}=await supabaseServer().from('service_entries').insert({entity_name,hours,description,service_date});
-  if(error) return NextResponse.redirect(new URL('/?error=save#submit',request.url));
-  return NextResponse.redirect(new URL('/?submitted=1#submit',request.url));
+  if(error) return NextResponse.json({error:error.message},{status:500});
+  return NextResponse.json({ok:true});
 }
