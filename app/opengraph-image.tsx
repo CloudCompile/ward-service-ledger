@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 export const runtime='edge';
-export const alt='The Common Thread · Ward Service Ledger';
+export const alt='The Common Thread · Rochester 5th Ward Service Ledger';
 export const size={width:1200,height:630};
 export const contentType='image/png';
 export default function Image(){return new ImageResponse(<div style={{width:'100%',height:'100%',display:'flex',flexDirection:'column',justifyContent:'space-between',padding:'64px',background:'#f5f0e7',color:'#17233c',fontFamily:'sans-serif',backgroundImage:'linear-gradient(rgba(23,35,60,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(23,35,60,.06) 1px,transparent 1px)',backgroundSize:'40px 40px'}}><div style={{display:'flex',alignItems:'center',fontSize:25,fontWeight:700}}><div style={{width:48,height:48,borderRadius:24,background:'#17233c',color:'#e3a33b',display:'flex',alignItems:'center',justifyContent:'center',marginRight:16}}>♥</div>The common thread</div><div style={{display:'flex',flexDirection:'column'}}><div style={{fontSize:76,lineHeight:1.05,fontWeight:700,letterSpacing:-3}}>Small acts.<br/><span style={{color:'#e76f51'}}>One big</span> offering.</div><div style={{fontSize:26,marginTop:24,color:'#17233c99'}}>Ward service ledger · Every hour leaves a mark</div></div><div style={{display:'flex',justifyContent:'space-between',fontSize:20,color:'#17233c99'}}><span>Mosiah 2:17</span><span>ward-service-ledger.vercel.app</span></div></div>,{...size});}
