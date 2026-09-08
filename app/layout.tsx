@@ -1,4 +1,5 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 export const metadata: Metadata = { metadataBase:new URL('https://ward-service-ledger.vercel.app'), title:'Common Thread · Rochester 5th Ward', description:'A living record of service for the Rochester 5th Ward.', openGraph:{title:'The Common Thread · Rochester 5th Ward Service Ledger',description:'Every hour leaves a mark.',url:'https://ward-service-ledger.vercel.app',siteName:'The Common Thread',type:'website',images:[{url:'/opengraph-image?v=3',width:1200,height:630,alt:'The Common Thread Rochester 5th Ward Service Ledger'}]}, twitter:{card:'summary_large_image',title:'The Common Thread · Rochester 5th Ward',description:'Every hour leaves a mark.',images:['/opengraph-image?v=3']} };
-export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en"><body>{children}</body></html>}
+export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en"><body>{children}<Analytics /></body></html>}
