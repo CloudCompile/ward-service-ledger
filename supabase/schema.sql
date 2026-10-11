@@ -36,3 +36,38 @@ returns json language sql security definer set search_path = public
 as $$ select json_build_object('total_hours', coalesce(sum(hours), 0)) from public.service_entries $$;
 revoke all on function public.get_public_service_totals() from public;
 grant execute on function public.get_public_service_totals() to anon, authenticated;
+
+-- Website performance/analytics telemetry.
+-- Every page view and the daily cron heartbeat write a row here. This is also
+-- what keeps the database from going a day without activity.
+create table public.page_telemetry (
+  id uuid primary key default gen_random_uuid(),
+  event_type text not null default 'page_view' check (event_type in ('page_view', 'cron_ping')),
+  path text,
+  referrer text,
+  user_agent text,
+  created_at timestamptz not null default now()
+);
+create index page_telemetry_created_at_idx on public.page_telemetry (created_at desc);
+alter table public.page_telemetry enable row level security;
+create policy "admins read telemetry" on public.page_telemetry for select using (public.is_admin());
+
+-- Writes telemetry without exposing the table for public reads. Called by the
+-- site (anon) and by the Vercel cron route (service role).
+create or replace function public.record_telemetry(
+  p_event_type text default 'page_view',
+  p_path text default null,
+  p_referrer text default null,
+  p_user_agent text default null
+) returns void language sql security definer set search_path = public
+as $$
+  insert into public.page_telemetry (event_type, path, referrer, user_agent)
+  values (
+    case when p_event_type = 'cron_ping' then 'cron_ping' else 'page_view' end,
+    left(p_path, 512),
+    left(p_referrer, 512),
+    left(p_user_agent, 512)
+  )
+$$;
+revoke all on function public.record_telemetry(text, text, text, text) from public;
+grant execute on function public.record_telemetry(text, text, text, text) to anon, authenticated;
